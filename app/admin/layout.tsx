@@ -1,3 +1,4 @@
+// app/admin/layout.tsx (Versión simplificada)
 import { redirect } from 'next/navigation';
 import { createClient } from '@/utils/supabase/server';
 
@@ -25,7 +26,7 @@ export default async function AdminLayout({
 
   return (
     <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Sidebar - Oculto en m贸viles, visible en desktop */}
+      {/* Sidebar - Oculto en móviles, visible en desktop */}
       <aside className="hidden lg:flex w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex-col">
         <div className="p-4 border-b border-gray-200 dark:border-gray-700">
           <h2 className="text-xl font-bold text-gray-800 dark:text-white">FlexEasy Admin</h2>
@@ -35,21 +36,21 @@ export default async function AdminLayout({
         <nav className="flex-1 p-4">
           <div className="space-y-2">
             <a href="/admin" className="flex items-center space-x-3 py-2 px-3 text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-              <span>馃搳</span>
+              <span>??</span>
               <span>Dashboard</span>
             </a>
             <a href="/admin/users" className="flex items-center space-x-3 py-2 px-3 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-              <span>馃懃</span>
+              <span>??</span>
               <span>Usuarios</span>
             </a>
             <a href="/admin/subscriptions" className="flex items-center space-x-3 py-2 px-3 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-              <span>馃挸</span>
+              <span>??</span>
               <span>Suscripciones</span>
             </a>
           </div>
         </nav>
 
-        {/* Informaci贸n del usuario */}
+        {/* Información del usuario */}
         <div className="p-4 border-t border-gray-200 dark:border-gray-700">
           <div className="flex items-center space-x-3 mb-3">
             <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
@@ -64,10 +65,14 @@ export default async function AdminLayout({
               </p>
             </div>
           </div>
-          <form action="/auth/signout" method="post">
-            <button className="w-full flex items-center justify-center space-x-2 py-2 px-3 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors text-sm">
-              <span>馃毆</span>
-              <span>Cerrar Sesi贸n</span>
+          {/* Formulario de cierre de sesión corregido */}
+          <form action="/auth/signout" method="POST">
+            <button 
+              type="submit"
+              className="w-full flex items-center justify-center space-x-2 py-2 px-3 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors text-sm"
+            >
+              <span>??</span>
+              <span>Cerrar Sesión</span>
             </button>
           </form>
         </div>
@@ -75,11 +80,11 @@ export default async function AdminLayout({
 
       {/* Contenido principal */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Header m贸vil */}
+        {/* Header móvil */}
         <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4">
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-3">
-              {/* Bot贸n men煤 m贸vil */}
+              {/* Botón menú móvil */}
               <button className="lg:hidden p-2 rounded-md text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -87,13 +92,25 @@ export default async function AdminLayout({
               </button>
               <h1 className="text-lg font-semibold text-gray-800 dark:text-white">Panel Administrativo</h1>
             </div>
-            <div className="hidden sm:block text-sm text-gray-500 dark:text-gray-400">
-              {new Date().toLocaleDateString('es-ES', { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-              })}
+            <div className="flex items-center space-x-4">
+              <div className="hidden sm:block text-sm text-gray-500 dark:text-gray-400">
+                {new Date().toLocaleDateString('es-ES', { 
+                  weekday: 'long', 
+                  year: 'numeric', 
+                  month: 'long', 
+                  day: 'numeric' 
+                })}
+              </div>
+              {/* Botón de cerrar sesión en móvil */}
+              <form action="/auth/signout" method="POST" className="lg:hidden">
+                <button 
+                  type="submit"
+                  className="flex items-center space-x-2 text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 text-sm"
+                >
+                  <span>??</span>
+                  <span>Cerrar Sesión</span>
+                </button>
+              </form>
             </div>
           </div>
         </header>
