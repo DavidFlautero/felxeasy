@@ -14,7 +14,7 @@ export async function POST() {
     
     if (!user) {
       console.log('⚠️ No hay usuario autenticado, redirigiendo...');
-      return NextResponse.redirect(new URL('/admin-login', process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'));
+      return NextResponse.redirect(new URL('/admin-login', process.env.NEXT_PUBLIC_SITE_URL || '/'));
     }
 
     // Cerrar sesión en Supabase
