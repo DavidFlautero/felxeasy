@@ -9,7 +9,7 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Play, Pause, Square, Battery, Clock, Package, MapPin, Bell, Settings, Calendar, Clock9, Zap, User, Lock, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { Play, Pause, Square, Package, MapPin, Bell, Settings, Calendar, Clock9, Zap, User, Lock, AlertCircle, CheckCircle2 } from 'lucide-react';
 
 interface AmazonFlexCredentials {
   email: string;
@@ -19,7 +19,6 @@ interface AmazonFlexCredentials {
 
 export default function RobotDashboard() {
   const [status, setStatus] = useState('inactive');
-  const [batteryLevel, setBatteryLevel] = useState(100);
   const [isAutoSearchEnabled, setIsAutoSearchEnabled] = useState(false);
   const [notificationEnabled, setNotificationEnabled] = useState(true);
   const [selectedStations, setSelectedStations] = useState<string[]>([]);
@@ -31,12 +30,6 @@ export default function RobotDashboard() {
   const [showCredentialsForm, setShowCredentialsForm] = useState(false);
   const [isTesting, setIsTesting] = useState(false);
   const [testResult, setTestResult] = useState<'success' | 'error' | null>(null);
-
-  const schedule = {
-    startTime: '08:00',
-    endTime: '17:00',
-    days: [1, 2, 3, 4, 5] // Monday to Friday
-  };
 
   const stations = [
     { id: 'station1', name: 'Downtown Station' },
@@ -97,9 +90,9 @@ export default function RobotDashboard() {
     setIsTesting(true);
     setTestResult(null);
     
-    // Simular prueba de credenciales (en producción esto llamaría a tu API)
+    // Simular prueba de credenciales
     setTimeout(() => {
-      const success = Math.random() > 0.3; // 70% de éxito para demo
+      const success = Math.random() > 0.3;
       setTestResult(success ? 'success' : 'error');
       setIsTesting(false);
     }, 2000);
@@ -110,14 +103,6 @@ export default function RobotDashboard() {
     localStorage.removeItem('amazonFlexCredentials');
     setStatus('inactive');
     setIsAutoSearchEnabled(false);
-  };
-
-  const toggleStation = (stationId: string) => {
-    setSelectedStations(prev => 
-      prev.includes(stationId) 
-        ? prev.filter(id => id !== stationId) 
-        : [...prev, stationId]
-    );
   };
 
   const getStatusVariant = () => {
@@ -408,4 +393,170 @@ export default function RobotDashboard() {
 
           {/* Work Schedule */}
           <Card>
-            <CardHeader
+            <CardHeader>
+              <CardTitle className="flex items-center text-foreground">
+                <Clock9 className="mr-2 h-5 w-5" />
+                Work Schedule
+              </CardTitle>
+              <CardDescription>Configure preferred block schedules</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label className="text-foreground">Activation Schedule</Label>
+                <div className="flex flex-col sm:flex-row items-center gap-2">
+                  <Input
+                    type="time"
+                    defaultValue="08:00"
+                    className="flex-1"
+                  />
+                  <span className="text-muted-foreground">to</span>
+                  <Input
+                    type="time"
+                    defaultValue="17:00"
+                    className="flex-1"
+                  />
+                </div>
+              </div>
+              
+              <div className="space-y-2">
+                <Label className="text-foreground">Work Days</Label>
+                <div className="flex flex-wrap gap-2">
+                  {daysOfWeek.map(day => (
+                    <Button
+                      key={day.id}
+                      variant="outline"
+                      size="sm"
+                      className="flex-1 min-w-[60px]"
+                    >
+                      {day.name.substring(0, 3)}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Search Preferences */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center text-foreground">
+                <MapPin className="mr-2 h-5 w-5" />
+                Search Preferences
+              </CardTitle>
+              <CardDescription>Preferred stations and block types</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label className="text-foreground">Preferred Stations</Label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {stations.map(station => (
+                    <Button
+                      key={station.id}
+                      variant="outline"
+                      size="sm"
+                      className="justify-start"
+                    >
+                      {station.name}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="space-y-2">
+                <Label className="text-foreground">Block Types</Label>
+                <div className="flex flex-wrap gap-2">
+                  <Button variant="outline" size="sm">
+                    Instant Delivery
+                  </Button>
+                  <Button variant="outline" size="sm">
+                    Scheduled Delivery
+                  </Button>
+                  <Button variant="outline" size="sm">
+                    Logistics
+                  </Button>
+                </div>
+              </div>
+              
+              <div className="space-y-2">
+                <Label className="text-foreground">Minimum Rate per Hour</Label>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm text-muted-foreground">$</span>
+                  <Input
+                    type="number"
+                    min="18"
+                    max="50"
+                    defaultValue="22"
+                    className="flex-1"
+                  />
+                  <span className="text-sm text-muted-foreground">USD</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+        
+        {/* Recent Activity */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center text-foreground">
+              <Calendar className="mr-2 h-5 w-5" />
+              Recent Activity
+            </CardTitle>
+            <CardDescription>Block capture history</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="text-center py-8">
+              <Package className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
+              <h3 className="text-lg font-medium text-foreground mb-2">No recent activity</h3>
+              <p className="text-muted-foreground">
+                {credentials.isConfigured 
+                  ? 'Start the bot to begin capturing blocks' 
+                  : 'Configure your Amazon Flex account to get started'
+                }
+              </p>
+              <Button 
+                className="mt-4" 
+                onClick={handleStart} 
+                disabled={!isAutoSearchEnabled || !credentials.isConfigured}
+              >
+                <Play className="mr-2 h-4 w-4" />
+                Start Search
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+        
+        {/* System Notifications */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center text-foreground">
+              <Bell className="mr-2 h-5 w-5" />
+              System Notifications
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex items-start gap-3 p-3 bg-muted rounded-lg">
+              <div className="bg-primary/10 p-2 rounded-full">
+                <Bell className="h-4 w-4 text-primary" />
+              </div>
+              <div>
+                <p className="font-medium text-foreground">
+                  {credentials.isConfigured 
+                    ? 'System configured successfully' 
+                    : 'Amazon Flex account required'
+                  }
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  {credentials.isConfigured 
+                    ? 'Your system is ready to start searching for blocks. Enable auto search to begin.'
+                    : 'Please configure your Amazon Flex credentials to enable the bot.'
+                  }
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+}
