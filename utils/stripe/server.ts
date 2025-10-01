@@ -18,9 +18,6 @@ type CheckoutResponse = {
   sessionId?: string;
 };
 
-/**
- * Checkout con Stripe usando Server Actions y Supabase.
- */
 export async function checkoutWithStripe(
   price: Price,
   redirectPath: string = '/account'
@@ -29,9 +26,9 @@ export async function checkoutWithStripe(
     const supabase = createClient();
     const { error, data: { user } } = await supabase.auth.getUser();
 
-    if (error || !user) {
-      console.error('Supabase getUser error:', error);
-      throw new Error('Could not get user session.');
+    if (error || !user || !user.email) {
+      console.error('Supabase getUser error or missing email:', error, user);
+      throw new Error('Could not get user session or email.');
     }
 
     // Crear o recuperar cliente en Stripe
@@ -39,14 +36,13 @@ export async function checkoutWithStripe(
     try {
       customer = await createOrRetrieveCustomer({
         uuid: user.id,
-        email: user.email
+        email: user.email // ya garantizado que no sea null
       });
     } catch (err) {
       console.error('Error createOrRetrieveCustomer:', err);
       throw new Error('Unable to access customer record.');
     }
 
-    // Configuración de sesión de checkout
     const params: Stripe.Checkout.SessionCreateParams = {
       allow_promotion_codes: true,
       billing_address_collection: 'required',
@@ -62,18 +58,9 @@ export async function checkoutWithStripe(
           : undefined
     };
 
-    // Crear sesión en Stripe
-    let session;
-    try {
-      session = await stripe.checkout.sessions.create(params);
-    } catch (err) {
-      console.error('Stripe checkout.sessions.create error:', err);
-      throw new Error('Unable to create checkout session.');
-    }
+    const session = await stripe.checkout.sessions.create(params);
 
-    if (!session) {
-      throw new Error('Unable to create checkout session.');
-    }
+    if (!session) throw new Error('Unable to create checkout session.');
 
     return { sessionId: session.id };
   } catch (error) {
@@ -88,17 +75,14 @@ export async function checkoutWithStripe(
   }
 }
 
-/**
- * Billing portal de Stripe usando Server Actions y Supabase.
- */
 export async function createStripePortal(currentPath: string) {
   try {
     const supabase = createClient();
     const { error, data: { user } } = await supabase.auth.getUser();
 
-    if (error || !user) {
-      console.error('Supabase getUser error:', error);
-      throw new Error('Could not get user session.');
+    if (error || !user || !user.email) {
+      console.error('Supabase getUser error or missing email:', error, user);
+      throw new Error('Could not get user session or email.');
     }
 
     let customer: string;
