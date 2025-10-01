@@ -25,10 +25,9 @@ export async function checkoutWithStripe(
   try {
     // Get the user from Supabase auth
     const supabase = createClient();
-    const {
-      error,
-      data: { user }
-    } = await supabase.auth.getUser();
+    const res = await supabase.auth.getUser();
+    console.log('Supabase getUser result:', res);
+    const { error, data: { user } } = res;
 
     if (error || !user) {
       console.error(error);
