@@ -21,8 +21,11 @@ import pricingPlans, { dummyPricing, productionPricing } from '@/config/pricing'
 type Subscription = Tables<'subscriptions'>;
 type Product = Tables<'products'>;
 type Price = Tables<'prices'>;
+// interface ProductWithPrices extends Product {
+//   prices: Price[];
+// }
 interface ProductWithPrices extends Product {
-  prices: Price[];
+  prices: any[];
 }
 interface PriceWithProduct extends Price {
   products: Product | null;
