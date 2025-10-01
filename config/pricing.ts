@@ -52,6 +52,8 @@ export const dummyPricing: ProductWithPrices[] = [
   {
     id: 'starter-plan',
     name: 'Starter',
+    image: null,      // ✅ agregado
+    metadata: null,   // ✅ agregado
     description: 'Everything you need to start',
     active: true,
     prices: [
@@ -70,6 +72,8 @@ export const dummyPricing: ProductWithPrices[] = [
   {
     id: 'pro-plan',
     name: 'Pro',
+    image: null,      // ✅ agregado
+    metadata: null,   // ✅ agregado
     description: 'Advanced features for heavy use and teams',
     active: true,
     prices: [
