@@ -49,7 +49,7 @@ export default function PricingRounded({
   const intervals = Array.from(
     new Set(
       products.flatMap((product) =>
-        product?.prices?.map((price) => price?.interval)
+        product?.prices?.map((price: any) => price?.interval)
       )
     )
   );
@@ -139,7 +139,7 @@ export default function PricingRounded({
           <div className="grid gap-6 mt-10 md:grid-cols-3">
             {displayProducts.map((product) => {
               const price = product?.prices?.find(
-                (price) => price.interval === billingInterval
+                (price: any) => price.interval === billingInterval
               );
               if (!price) return null;
               const priceString = new Intl.NumberFormat('en-US', {
