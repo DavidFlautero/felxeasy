@@ -61,26 +61,32 @@ export default function PricingRounded({
   const [priceIdLoading, setPriceIdLoading] = useState<string>();
   const currentPath = usePathname();
 
-  const handleStripeCheckout = async (price: Price) => {
-    setPriceIdLoading(price.id);
+const handleStripeCheckout = async (price: Price) => {
+  console.log('➡️ Starting checkout for price:', price);
 
-    if (!user) {
-      setPriceIdLoading(undefined);
-      return router.push('/signup');
-    }
+  setPriceIdLoading(price.id);
 
-    const { errorRedirect, sessionId } = await checkoutWithStripe(
-      price,
-      currentPath
-    );
+  if (!user) {
+    setPriceIdLoading(undefined);
+    console.log('❌ No user logged in, redirecting to /signup');
+    return router.push('/signup');
+  }
+
+  try {
+    const result = await checkoutWithStripe(price, currentPath);
+    console.log('✅ Result from checkoutWithStripe:', result);
+
+    const { errorRedirect, sessionId } = result;
 
     if (errorRedirect) {
       setPriceIdLoading(undefined);
+      console.log('❌ Error redirect returned:', errorRedirect);
       return router.push(errorRedirect);
     }
 
     if (!sessionId) {
       setPriceIdLoading(undefined);
+      console.log('❌ No sessionId returned');
       return router.push(
         getErrorRedirect(
           currentPath,
@@ -91,10 +97,15 @@ export default function PricingRounded({
     }
 
     const stripe = await getStripe();
+    console.log('➡️ Redirecting to Stripe checkout with sessionId:', sessionId);
     stripe?.redirectToCheckout({ sessionId });
 
+  } catch (err) {
     setPriceIdLoading(undefined);
-  };
+    console.error('🔥 Exception in handleStripeCheckout:', err);
+  }
+};
+
 
   // const displayProducts = products.length ? products : dummyPricing;
   const displayProducts = products.length ? products : productionPricing;
