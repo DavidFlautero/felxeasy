@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { productionPricing } from '@/config/pricing';
 import {
   Card,
   CardHeader,
@@ -92,7 +93,8 @@ export default function PricingRounded({
     setPriceIdLoading(undefined);
   };
 
-  const displayProducts = products.length ? products : dummyPricing;
+  // const displayProducts = products.length ? products : dummyPricing;
+  const displayProducts = products.length ? products : productionPricing;
 
   if (!displayProducts.length) {
     return (
