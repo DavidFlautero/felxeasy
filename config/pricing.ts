@@ -49,51 +49,42 @@ export interface ProductWithPrices extends Product {
 }
 
 // ⚠️ IDs dummy (sólo para UI). En producción, usa los de tu DB/Stripe.
-export const dummyPricing: ProductWithPrices[] = [
+export const productionPricing: ProductWithPrices[] = [
   {
     id: 'starter-plan',
     name: 'Starter',
     description: 'Everything you need to start',
     active: true,
-    image: null,
-    metadata: null,
     prices: [
       {
-        id: 'starter-monthly-price',
+        id: 'price_1SD75mAl3g1DrFYcrETAkrqB', // ✅ ID real de Stripe
         currency: 'USD',
-        unit_amount: 2000, // $20.00
+        unit_amount: 2000,
         interval: 'month',
         interval_count: 1,
-        trial_period_days: null,
         type: 'recurring',
         active: true,
-        product_id: 'starter-plan',
-        description: null,
-        metadata: null,
+        product_id: 'prod_T9PvXS59yYTnBj',
       } as Price,
     ],
-  } as ProductWithPrices,
+  },
   {
     id: 'pro-plan',
     name: 'Pro',
     description: 'Advanced features for heavy use and teams',
     active: true,
-    image: null,
-    metadata: null,
     prices: [
       {
-        id: 'pro-monthly-price',
+        id: 'price_1SD73kAl3g1DrFYcQaRTyvQw', // ✅ ID real de Stripe
         currency: 'USD',
-        unit_amount: 9000, // $90.00
+        unit_amount: 9000,
         interval: 'month',
         interval_count: 1,
-        trial_period_days: null,
         type: 'recurring',
         active: true,
-        product_id: 'pro-plan',
-        description: null,
-        metadata: null,
+        product_id: 'prod_T9Pt5UwbRkDQ0x',
       } as Price,
     ],
-  } as ProductWithPrices,
+  },
 ];
+
