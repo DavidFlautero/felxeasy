@@ -52,40 +52,40 @@ export const dummyPricing: ProductWithPrices[] = [
   {
     id: 'starter-plan',
     name: 'Starter',
-    image: null,      // ✅ agregado
-    metadata: null,   // ✅ agregado
+    image: null,     
+    metadata: null,  
     description: 'Everything you need to start',
     active: true,
     prices: [
       {
-        id: 'starter-monthly-price',
+        id: 'price_1SD75mAl3g1DrFYcrETAkrqB',
         currency: 'USD',
         unit_amount: 2000,
         interval: 'month',
         interval_count: 1,
         type: 'recurring',
         active: true,
-        product_id: 'starter-plan',
+        product_id: 'prod_T9PvXS59yYTnBj',
       } as Price,
     ],
   },
   {
     id: 'pro-plan',
     name: 'Pro',
-    image: null,      // ✅ agregado
-    metadata: null,   // ✅ agregado
+    image: null,     
+    metadata: null,  
     description: 'Advanced features for heavy use and teams',
     active: true,
     prices: [
       {
-        id: 'pro-monthly-price',
+        id: 'price_1SD73kAl3g1DrFYcQaRTyvQw',
         currency: 'USD',
         unit_amount: 9000,
         interval: 'month',
         interval_count: 1,
         type: 'recurring',
         active: true,
-        product_id: 'pro-plan',
+        product_id: 'prod_T9Pt5UwbRkDQ0x',
       } as Price,
     ],
   },
@@ -98,6 +98,8 @@ export const productionPricing: ProductWithPrices[] = [
     name: 'Starter',
     description: 'Everything you need to start',
     active: true,
+    image: null,     
+    metadata: null,  
     prices: [
       {
         id: 'price_1SD75mAl3g1DrFYcrETAkrqB', // ID real de Stripe
@@ -116,6 +118,8 @@ export const productionPricing: ProductWithPrices[] = [
     name: 'Pro',
     description: 'Advanced features for heavy use and teams',
     active: true,
+    image: null,     
+    metadata: null,  
     prices: [
       {
         id: 'price_1SD73kAl3g1DrFYcQaRTyvQw', // ID real de Stripe

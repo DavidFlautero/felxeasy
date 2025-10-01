@@ -24,7 +24,9 @@ type Price = Tables<'prices'>;
 // interface ProductWithPrices extends Product {
 //   prices: Price[];
 // }
-type ProductWithPrices = any;
+export interface ProductWithPrices extends Partial<Product> {
+  prices: Price[];
+}
 
 interface PriceWithProduct extends Price {
   products: Product | null;
