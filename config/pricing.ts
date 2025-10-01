@@ -7,12 +7,10 @@ export interface Plan {
   name: string;
   description: string;
   features: string[];
-  // usamos centavos: 2000 = $20.00, 9000 = $90.00
-  monthlyPrice: number;
-  // yearlyPrice?: number; // <- NO lo usamos (dejalo comentado si tu UI lo importaba)
+  monthlyPrice: number; // usamos centavos: 2000 = $20.00, 9000 = $90.00
 }
 
-// mismo set de features en ambos planes
+// Mismo set de features en ambos planes
 const sharedFeatures = [
   '24/7 automatic block capture',
   'Smart filtering & notifications',
@@ -41,14 +39,55 @@ const pricingPlans: Plan[] = [
 
 export default pricingPlans;
 
-// ——— Dummy pricing (si renderizas con tipado de Supabase sin leer de la DB) ———
+// ——— Dummy / producción pricing ———
 type Product = Tables<'products'>;
 type Price = Tables<'prices'>;
+
 export interface ProductWithPrices extends Product {
   prices: Price[];
 }
 
-// ⚠️ IDs dummy (sólo para UI). En producción, usa los de tu DB/Stripe.
+// ⚠️ Datos dummy (para desarrollo)
+export const dummyPricing: ProductWithPrices[] = [
+  {
+    id: 'starter-plan',
+    name: 'Starter',
+    description: 'Everything you need to start',
+    active: true,
+    prices: [
+      {
+        id: 'starter-monthly-price',
+        currency: 'USD',
+        unit_amount: 2000,
+        interval: 'month',
+        interval_count: 1,
+        type: 'recurring',
+        active: true,
+        product_id: 'starter-plan',
+      } as Price,
+    ],
+  },
+  {
+    id: 'pro-plan',
+    name: 'Pro',
+    description: 'Advanced features for heavy use and teams',
+    active: true,
+    prices: [
+      {
+        id: 'pro-monthly-price',
+        currency: 'USD',
+        unit_amount: 9000,
+        interval: 'month',
+        interval_count: 1,
+        type: 'recurring',
+        active: true,
+        product_id: 'pro-plan',
+      } as Price,
+    ],
+  },
+];
+
+// ⚠️ Datos de producción (Stripe real)
 export const productionPricing: ProductWithPrices[] = [
   {
     id: 'starter-plan',
@@ -57,7 +96,7 @@ export const productionPricing: ProductWithPrices[] = [
     active: true,
     prices: [
       {
-        id: 'price_1SD75mAl3g1DrFYcrETAkrqB', // ✅ ID real de Stripe
+        id: 'price_1SD75mAl3g1DrFYcrETAkrqB', // ID real de Stripe
         currency: 'USD',
         unit_amount: 2000,
         interval: 'month',
@@ -75,7 +114,7 @@ export const productionPricing: ProductWithPrices[] = [
     active: true,
     prices: [
       {
-        id: 'price_1SD73kAl3g1DrFYcQaRTyvQw', // ✅ ID real de Stripe
+        id: 'price_1SD73kAl3g1DrFYcQaRTyvQw', // ID real de Stripe
         currency: 'USD',
         unit_amount: 9000,
         interval: 'month',
@@ -87,4 +126,3 @@ export const productionPricing: ProductWithPrices[] = [
     ],
   },
 ];
-

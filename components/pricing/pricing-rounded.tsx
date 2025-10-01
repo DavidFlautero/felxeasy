@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { productionPricing } from '@/config/pricing';
 import {
   Card,
   CardHeader,
@@ -16,8 +15,8 @@ import { getErrorRedirect } from '@/utils/helpers';
 import { User } from '@supabase/supabase-js';
 import { useRouter, usePathname } from 'next/navigation';
 import { Moon } from 'lucide-react';
-import pricingPlans from '@/config/pricing';
-import { dummyPricing } from '@/config/pricing';
+
+import pricingPlans, { dummyPricing, productionPricing } from '@/config/pricing';
 
 type Subscription = Tables<'subscriptions'>;
 type Product = Tables<'products'>;
