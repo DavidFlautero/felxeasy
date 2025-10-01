@@ -38,6 +38,10 @@ export async function checkoutWithStripe(
     // Retrieve or create the customer in Stripe
     let customer: string;
     try {
+      console.log('User info for Stripe:', {
+        id: user?.id,
+        email: user?.email
+      });
       customer = await createOrRetrieveCustomer({
         uuid: user?.id || '',
         email: user?.email || ''
