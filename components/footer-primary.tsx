@@ -16,7 +16,6 @@ const AnimatedUnderline = ({ children, href, className }: { children: React.Reac
     <span className="absolute bottom-0 left-0 w-full h-0.5 bg-current transform scale-x-0 origin-left transition-transform duration-500 ease-out group-hover:scale-x-100"></span>
   </a>
 );
-
 export default function FooterPrimary() {
   const { toast } = useToast()
 
@@ -25,67 +24,69 @@ export default function FooterPrimary() {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="text-lg font-bold mb-4">Work</h3>
+            <h3 className="text-lg font-bold mb-4">Productos</h3>
             <ul className="space-y-2">
               <li>
-                <AnimatedUnderline href="https://github.com/antoineross/AutoFlex Easy" className="text-primary">
+                <AnimatedUnderline href="#" className="text-primary">
                   AutoFlex Easy
                 </AnimatedUnderline>
               </li>
               <li>
-                <AnimatedUnderline href="https://github.com/antoineross/Autogen-UI" className="text-primary">
-                  Autogen UI
+                <AnimatedUnderline href="#" className="text-primary">
+                  Suscripciones
                 </AnimatedUnderline>
               </li>
               <li>
                 <AnimatedUnderline href="#" className="text-primary">
-                  See all →
+                  Ver todo →
                 </AnimatedUnderline>
               </li>
             </ul>
           </div>
+
           <div>
-            <h3 className="text-lg font-bold mb-4">Company</h3>
+            <h3 className="text-lg font-bold mb-4">Soporte</h3>
             <ul className="space-y-2">
               <li>
                 <AnimatedUnderline href="#" className="text-primary">
-                  About
+                  Preguntas frecuentes
                 </AnimatedUnderline>
               </li>
               <li>
-                <AnimatedUnderline href="/documentation" className="text-primary">
-                  Documentation
+                <AnimatedUnderline href="#" className="text-primary">
+                  Documentación
                 </AnimatedUnderline>
               </li>
-           
               <li>
-                <AnimatedUnderline href="mailto:hello@antoineross.com" className="text-primary">
-                  Contact us
+                <AnimatedUnderline href="#" className="text-primary">
+                  Contacto
                 </AnimatedUnderline>
               </li>
             </ul>
           </div>
+
           <div>
-            <h3 className="text-lg font-bold mb-4">Connect</h3>
+            <h3 className="text-lg font-bold mb-4">AutoFlex Easy</h3>
             <ul className="space-y-2">
               <li>
-                <AnimatedUnderline href="https://x.com/AutoFlex" className="text-primary">
-                  X
+                <AnimatedUnderline href="#" className="text-primary">
+                  Seguridad
                 </AnimatedUnderline>
               </li>
               <li>
-                <AnimatedUnderline href="https://linkedin.com/in/AutoFlex" className="text-primary">
-                  LinkedIn
+                <AnimatedUnderline href="#" className="text-primary">
+                  Términos
                 </AnimatedUnderline>
               </li>
               <li>
-                <AnimatedUnderline href="https://github.com/AutoFlex" className="text-primary">
-                  GitHub
+                <AnimatedUnderline href="#" className="text-primary">
+                  Privacidad
                 </AnimatedUnderline>
               </li>
             </ul>
           </div>
         </div>
+
         <div className="border-t mt-10 pt-6 flex flex-col items-center md:flex-row justify-between">
           <div className="flex items-center space-x-2">
             <LogInIcon className="h-6 w-6" />
@@ -97,6 +98,7 @@ export default function FooterPrimary() {
     </footer>
   );
 }
+
 
 function ArrowRightIcon(props: any) {
   return (
