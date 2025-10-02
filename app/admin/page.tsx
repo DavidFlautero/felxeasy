@@ -147,7 +147,7 @@ export default function AdminPage() {
         {/* Header Desktop */}
         <div className="hidden lg:flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 pt-6">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-foreground">FlexEasy Admin</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-foreground">AutoFlexEasy Admin</h1>
             <p className="text-muted-foreground">Panel de control</p>
           </div>
           <div className="flex items-center gap-4 flex-wrap">
