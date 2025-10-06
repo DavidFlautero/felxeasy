@@ -185,7 +185,7 @@ const handleStripeCheckout = async (price: Price) => {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-4xl font-bold py-8">{priceString}</div>
+                    <div className="text-4xl font-bold py-8 text-center">{priceString}</div>
                     <p className="mt-2 text-muted-foreground">
                       {product.description}
                     </p>
