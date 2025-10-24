@@ -8,7 +8,7 @@ export async function POST(request: Request) {
     const supabase = createClient();
     
     const { error: sessionError } = await supabase
-      .from('robot_sessions')
+      .from('robot_sessions' as any)
       .update({
         status,
         metrics,
@@ -32,7 +32,7 @@ export async function POST(request: Request) {
       }));
 
       const { error: blocksError } = await supabase
-        .from('block_captures')
+        .from('block_captures' as any)
         .insert(blocksData);
 
       if (blocksError) {

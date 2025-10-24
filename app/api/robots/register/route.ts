@@ -8,7 +8,7 @@ export async function POST(request: Request) {
     const { userId, driverData } = await request.json();
     
     const { data, error } = await supabase
-      .from('robot_sessions')
+      .from('robot_sessions' as any)
       .upsert({
         user_id: userId,
         status: 'online',

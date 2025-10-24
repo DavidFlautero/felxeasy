@@ -12,7 +12,7 @@ export async function GET(request: Request) {
 
     const supabase = createClient();
     const { data, error } = await supabase
-      .from('robot_sessions')
+      .from('robot_sessions' as any)
       .select('commands')
       .eq('user_id', userId)
       .single();
@@ -40,7 +40,7 @@ export async function POST(request: Request) {
     };
 
     const { error } = await supabase
-      .from('robot_sessions')
+      .from('robot_sessions' as any)
       .update({ 
         commands: { commands: [newCommand] },
         updated_at: new Date().toISOString()

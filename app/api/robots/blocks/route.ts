@@ -7,7 +7,7 @@ export async function POST(request: Request) {
 
     const supabase = createClient();
     const { data, error } = await supabase
-      .from('block_captures')
+      .from('block_captures' as any)
       .insert({
         user_id: userId,
         block_id: blockData.block_id,
